@@ -1,0 +1,58 @@
+# ==========================================
+# render.yaml
+# Version: 1.0.0
+# Last Change: ASHA deployment blueprint for Render.com (2026-09-15)
+# Impact Set (v1.0.0): deployment
+# ==========================================
+# Blueprint: https://render.com/docs/blueprint-spec
+#
+# استقرار:
+# 1. ریپو را به GitHub/GitLab پوش کنید
+# 2. در Render → New → Blueprint → این ریپو را انتخاب کنید
+# 3. متغیرهای محیطی را در داشبورد پر کنید
+
+services:
+  - type: web
+    name: asha-api
+    runtime: python
+    plan: free
+    region: frankfurt
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: PYTHONPATH
+        value: "."
+      - key: ASHA_ENV
+        value: production
+      - key: ASHA_DEBUG
+        value: "false"
+      - key: ASHA_LOG_LEVEL
+        value: INFO
+      - key: API_HOST
+        value: "0.0.0.0"
+      # کلیدهای پلتفرم — در داشبورد Render به‌صورت Secret پر کنید
+      - key: EITAA_API_KEY
+        sync: false
+      - key: BALE_API_KEY
+        sync: false
+      - key: RUBIKA_API_KEY
+        sync: false
+      - key: DIVAR_API_KEY
+        sync: false
+      - key: TOROB_API_KEY
+        sync: false
+      - key: EMALLS_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: INSTAGRAM_ACCESS_TOKEN
+        sync: false
+      # اختیاری — اگر بعداً PostgreSQL/Redis اضافه کردید
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false

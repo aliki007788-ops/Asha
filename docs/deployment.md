@@ -20,3 +20,13 @@
 ## وضعیت فعلی
 
 فاز ۱ هنوز در حال توسعه است. استقرار Production فقط پس از تکمیل فاز ۸ و Human Review Gate مجاز است.
+
+## استقرار روی Render.com
+
+راهنمای کامل: [deployment-render.md](./deployment-render.md)
+
+خلاصه سریع:
+- فایل `render.yaml` در ریشه پروژه آماده است.
+- Start Command: `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
+- Health Check: `/health`
+- Region پیشنهادی: Frankfurt
